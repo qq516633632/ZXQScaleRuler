@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zxq="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <com.zxq.scalruerview.VertcalSralRulerView
+        android:id="@+id/app_ver_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="25dp"
+        zxq:defaultvalue="160"
+        zxq:maxvalue="250"
+        zxq:minvalue="110"
+        zxq:textcolor="@color/colorPrimary"
+        zxq:lincolor="@color/colorPrimary"
+        zxq:perspanvalue="5"
+        zxq:textsize="14sp"
+        zxq:linheight="1dp"
+        />
+    <TextView
+        android:id="@+id/lab_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textSize="20sp"
+        android:text="身高160.0cm"
+        />
+    <View
+        android:layout_width="20dp"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        />
+
+
+</RelativeLayout>

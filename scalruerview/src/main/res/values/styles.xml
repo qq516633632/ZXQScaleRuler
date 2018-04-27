@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="VertcalSralRulerView">
+
+        <!--字体颜色-->
+        <attr name="textcolor" format="color"></attr>
+        <!--刻度颜色-->
+        <attr name="lincolor" format="color"></attr>
+        <!--字体大小-->
+        <attr name="textsize" format="dimension"></attr>
+        <!--刻度宽度-->
+        <attr name="linheight" format="dimension"></attr>
+        <!--最大刻度长度-->
+        <attr name="maxlinlenght" format="dimension"></attr>
+        <!--居中刻度长度-->
+        <attr name="middlinlenght" format="dimension"></attr>
+        <!--最小刻度长度-->
+        <attr name="minlinlenght" format="dimension"></attr>
+        <!--文字距离刻度的间隔-->
+        <attr name="textmarglin" format="dimension"></attr>
+        <!--每个刻度的间隔-->
+        <attr name="itemspacing" format="dimension"></attr>
+        <!--最大值-->
+        <attr name="maxvalue" format="float"></attr>
+        <!--最小值-->
+        <attr name="minvalue" format="float"></attr>
+        <!--值的间隔-->
+        <attr name="perspanvalue" format="integer"></attr>
+        <!--默认选中值-->
+        <attr name="defaultvalue" format="integer"></attr>
+
+    </declare-styleable>
+</resources>
