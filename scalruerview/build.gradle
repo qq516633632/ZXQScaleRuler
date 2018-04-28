@@ -1,9 +1,12 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'com.novoda.bintray-release'//添加
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
 
+    lintOptions {
+        abortOnError false
+    }
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 26
@@ -22,4 +25,18 @@ android {
 
 dependencies {
 
+}
+
+publish {
+    userOrg = 'qq516633632'//bintray.com用户名
+    groupId = 'com.zhuxiaoqing.ZXQScaleRuler'//jcenter上的路径
+    artifactId = 'ZXQScaleRuler'//项目名称
+    publishVersion = '1.0.0'//版本号
+    desc = '刻度尺'//描述，不重要
+    website = 'https://github.com/qq516633632/ZXQScaleRuler'//网站，最好有，不重要
+}
+tasks.withType(Javadoc) {//防止编码问题
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
 }
