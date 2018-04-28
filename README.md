@@ -1,26 +1,26 @@
 # ZXQScaleRuler-刻度尺控件
-##控件介绍
+## 控件介绍
 一个优雅的简洁的刻度尺选择控件，可以用在 身高 体重 腰围等用户信息收集的UI视图上，带来非常nice的交互体验。
-##效果图   
+## 效果图   
 
-###水平刻度尺   
+### 水平刻度尺   
 
 ![](https://github.com/qq516633632/ZXQScaleRuler/blob/master/dmoimg/h_dmo_img.gif)   
 
 
-###垂直刻度尺
+### 垂直刻度尺
 
 ![](https://github.com/qq516633632/ZXQScaleRuler/blob/master/dmoimg/v_dmo_img.gif)   
 
 
-##使用方法
-##Gradle添加引用
+## 使用方法
+## Gradle添加引用
 ```
 compile 'com.zhuxiaoqing.ZXQScaleRuler:ZXQScaleRuler:1.0.0'
 
 ```
-##使用水平的刻度尺
-###布局中加入水平刻度尺控件
+## 使用水平的刻度尺
+### 布局中加入水平刻度尺控件
 ```xml
  <com.zxq.scalruerview.HorizontalScaleRulerView
             android:id="@+id/app_ver_view"
@@ -38,7 +38,7 @@ compile 'com.zhuxiaoqing.ZXQScaleRuler:ZXQScaleRuler:1.0.0'
             zxq:linheight="1dp"
             />
 ```
-###代码中
+### 代码中
 如果没有动态的调整 代码中只需要加入回调函数就可以了。
 ```
    app_ver_view.setValueChangeListener(new HorizontalScaleRulerView.OnValueChangeListener() {
@@ -61,7 +61,7 @@ setParam(int itemSpacing, int maxLineHeight, int middleLineHeight, int minLineHe
 initViewParam(float defaultValue, float minValue, float maxValue, int spanValue)
 ```
 
-##使用垂直刻度尺
+## 使用垂直刻度尺
 ```xml
 <com.zxq.scalruerview.VertcalSralRulerView
         android:id="@+id/app_ver_view"
@@ -79,10 +79,10 @@ initViewParam(float defaultValue, float minValue, float maxValue, int spanValue)
         zxq:linheight="1dp"
         />
 ```
-##代码中
+## 代码中
 使用方法和水平刻度尺一致
 
-##自定义属性说明
+## 自定义属性说明
 ```xml
 <declare-styleable name="VertcalSralRulerView">
 
@@ -114,7 +114,8 @@ initViewParam(float defaultValue, float minValue, float maxValue, int spanValue)
         <attr name="defaultvalue" format="integer"></attr>
 
     </declare-styleable>
-```
+```  
+
 垂直刻度尺和水平刻度尺通用
 
 
