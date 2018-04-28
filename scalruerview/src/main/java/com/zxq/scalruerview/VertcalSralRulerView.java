@@ -149,6 +149,15 @@ public class VertcalSralRulerView extends View {
         mMaxOffset = -(mTotalLine - 1) * mItemSpacing;
     }
 
+    /**
+     * 代码设置内部属性
+     * @param itemSpacing
+     * @param maxLineLength
+     * @param middleLineLength
+     * @param minLineLength
+     * @param textMarginRight
+     * @param textSize
+     */
     public void setParam(int itemSpacing, int maxLineLength, int middleLineLength, int minLineLength, int textMarginRight, int textSize) {
         mItemSpacing = itemSpacing;
         mMaxLineLength = maxLineLength;
@@ -158,6 +167,13 @@ public class VertcalSralRulerView extends View {
         mTextPaint.setTextSize(textSize);
     }
 
+    /**
+     * 重新初始View
+     * @param defaultValue
+     * @param minValue
+     * @param maxValue
+     * @param spanValue
+     */
     public void initViewParam(float defaultValue, float minValue, float maxValue, int spanValue) {
         this.mValue = defaultValue;
         this.mMaxValue = maxValue;

@@ -138,6 +138,15 @@ public class HorizontalScaleRulerView extends View {
         mMaxOffset = -(mTotalLine - 1) * mItemSpacing;
     }
 
+    /**
+     * 设置内部属性
+     * @param itemSpacing
+     * @param maxLineHeight
+     * @param middleLineHeight
+     * @param minLineHeight
+     * @param textMarginTop
+     * @param textSize
+     */
     public void setParam(int itemSpacing, int maxLineHeight, int middleLineHeight, int minLineHeight, int textMarginTop, int textSize) {
         mItemSpacing = itemSpacing;
         mMaxLineHeight = maxLineHeight;
@@ -147,6 +156,13 @@ public class HorizontalScaleRulerView extends View {
         mTextPaint.setTextSize(textSize);
     }
 
+    /**
+     * 重新初始化View
+     * @param defaultValue
+     * @param minValue
+     * @param maxValue
+     * @param spanValue
+     */
     public void initViewParam(float defaultValue, float minValue, float maxValue, int spanValue) {
         this.mValue = defaultValue;
         this.mMaxValue = maxValue;

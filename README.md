@@ -1,2 +1,2 @@
-# ZXQScaleRuler
-初次同步
+# ZXQScaleRuler-刻度尺控件
+
