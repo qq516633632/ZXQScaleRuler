@@ -1,6 +1,7 @@
 package com.zxq.scalruerview;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
@@ -45,6 +46,9 @@ public class HorizontalScaleRulerView extends View {
     private float mOffset; // 默认尺起始点在屏幕中心, offset是指尺起始点的偏移值
     private int mLastX, mMove;
     private OnValueChangeListener mListener;
+    private int textColor=0X80222222;
+    private int linColor=0X80222222;
+    private float textSize;
 
 
     public HorizontalScaleRulerView(Context context) {
@@ -58,28 +62,80 @@ public class HorizontalScaleRulerView extends View {
 
     public HorizontalScaleRulerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        init(context,attrs);
     }
 
-    protected void init(Context context) {
+    private void attresCorrection(){
+        if(mItemSpacing==-1){
+            mItemSpacing = DrawUtil.dip2px(14);
+        }
+        if(mLineWidth==-1){
+            mLineWidth = DrawUtil.dip2px(1);
+        }
+        if(mMaxLineHeight==-1){
+            mMaxLineHeight = DrawUtil.dip2px(42);
+        }
+        if(mMiddleLineHeight==-1){
+            mMiddleLineHeight = DrawUtil.dip2px(31);
+        }
+        if(mMinLineHeight==-1){
+            mMinLineHeight = DrawUtil.dip2px(17);
+        }
+        if(mTextMarginTop==-1){
+            mTextMarginTop = DrawUtil.dip2px(11);
+        }
+        if(textSize==-1){
+            textSize=DrawUtil.sp2px(16);
+        }
+    }
+    protected void init(Context context,AttributeSet attrs) {
         DrawUtil.resetDensity(context.getApplicationContext());
         mScroller = new Scroller(context);
         mMinVelocity = ViewConfiguration.get(getContext()).getScaledMinimumFlingVelocity();
-        mItemSpacing = DrawUtil.dip2px(14);
-        mLineWidth = DrawUtil.dip2px(1);
-        mMaxLineHeight = DrawUtil.dip2px(42);
-        mMiddleLineHeight = DrawUtil.dip2px(31);
-        mMinLineHeight = DrawUtil.dip2px(17);
-        mTextMarginTop = DrawUtil.dip2px(11);
+        if(attrs!=null){
+            //获取自定义属性
+            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.VertcalSralRulerView);
+            mItemSpacing=  a.getDimensionPixelSize(R.styleable.VertcalSralRulerView_itemspacing,-1);
+            mLineWidth= a.getDimensionPixelSize(R.styleable.VertcalSralRulerView_linheight,-1);
+            mMaxLineHeight=a.getDimensionPixelSize(R.styleable.VertcalSralRulerView_maxlinlenght,-1);
+            mMiddleLineHeight=a.getDimensionPixelSize(R.styleable.VertcalSralRulerView_middlinlenght,-1);
+            mMinLineHeight=a.getDimensionPixelSize(R.styleable.VertcalSralRulerView_minlinlenght,-1);
+            mTextMarginTop=a.getDimensionPixelSize(R.styleable.VertcalSralRulerView_textmarglin,-1);
+            textSize=a.getDimensionPixelSize(R.styleable.VertcalSralRulerView_textsize,-1);
+            linColor=a.getColor(R.styleable.VertcalSralRulerView_lincolor,0X80222222);
+            textColor=a.getColor(R.styleable.VertcalSralRulerView_textcolor,0X80222222);
+            mMaxValue=a.getFloat(R.styleable.VertcalSralRulerView_maxvalue,100);
+            mMinValue=a.getFloat(R.styleable.VertcalSralRulerView_minvalue,0);
+            mValue=a.getFloat(R.styleable.VertcalSralRulerView_defaultvalue,1);
+            //最后记得将TypedArray对象回收
+            a.recycle();
+            //进行参数修正
+            attresCorrection();
+        }else {
+            mItemSpacing = DrawUtil.dip2px(14);
+            mLineWidth = DrawUtil.dip2px(1);
+            mMaxLineHeight = DrawUtil.dip2px(42);
+            mMiddleLineHeight = DrawUtil.dip2px(31);
+            mMinLineHeight = DrawUtil.dip2px(17);
+            mTextMarginTop = DrawUtil.dip2px(11);
+            textSize=DrawUtil.sp2px(16);
+        }
+
+
 
         mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mTextPaint.setTextSize(DrawUtil.sp2px(16));
-        mTextPaint.setColor(0X80222222);
+        mTextPaint.setTextSize(textSize);
+        mTextPaint.setColor(textColor);
         mTextHeight = TextUtil.getFontHeight(mTextPaint);
 
         mLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mLinePaint.setStrokeWidth(mLineWidth);
-        mLinePaint.setColor(0X80222222);
+        mLinePaint.setColor(linColor);
+        //初始化部分参数
+        //默认初始化部分参数操作
+        mTotalLine = (int) (mMaxValue * 10 - mMinValue * 10) / mPerSpanValue + 1;
+        mOffset = (mMinValue - mValue) / mPerSpanValue * mItemSpacing * 10;
+        mMaxOffset = -(mTotalLine - 1) * mItemSpacing;
     }
 
     public void setParam(int itemSpacing, int maxLineHeight, int middleLineHeight, int minLineHeight, int textMarginTop, int textSize) {
@@ -111,6 +167,34 @@ public class HorizontalScaleRulerView extends View {
      */
     public void setValueChangeListener(OnValueChangeListener listener) {
         mListener = listener;
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        //测量试图大小
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+
+        //根据模式进行大小设置
+        switch (widthMode) {
+            case MeasureSpec.UNSPECIFIED: //如果没有指定大小，就设置为默认大小
+                mWidth = getWidth();
+                break;
+
+            case MeasureSpec.AT_MOST: //如果测量模式是最大取值为size
+                //我们将大小取最大值,你也可以取其他值
+                mWidth = widthSize;
+                break;
+
+            case MeasureSpec.EXACTLY: //如果是固定的大小，那就不要去改变它
+                mWidth = widthSize;
+                break;
+
+        }
+        //通过计算得到控件实际宽度
+        mHeight= (int) (mMaxLineHeight+mTextMarginTop+mTextHeight);
+        //设置控件大小
+        setMeasuredDimension(mWidth, mHeight);
     }
 
     @Override
