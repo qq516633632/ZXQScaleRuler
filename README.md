@@ -1,12 +1,17 @@
 # ZXQScaleRuler-刻度尺控件
 ##控件介绍
 一个优雅的简洁的刻度尺选择控件，可以用在 身高 体重 腰围等用户信息收集的UI视图上，带来非常nice的交互体验。
-##效果图
-###水平刻度尺
-![水平刻度尺](https://github.com/qq516633632/ZXQScaleRuler/blob/master/dmoimg/h_dmo_img.gif)
+##效果图   
+
+###水平刻度尺   
+
+![](https://github.com/qq516633632/ZXQScaleRuler/blob/master/dmoimg/h_dmo_img.gif)   
+
 
 ###垂直刻度尺
-![垂直刻度尺](https://github.com/qq516633632/ZXQScaleRuler/blob/master/dmoimg/v_dmo_img.gif)
+
+![](https://github.com/qq516633632/ZXQScaleRuler/blob/master/dmoimg/v_dmo_img.gif)   
+
 
 ##使用方法
 ##Gradle添加引用
